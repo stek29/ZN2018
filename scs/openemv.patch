@@ -1,0 +1,54 @@
+From 9a7c8ea73177b6be8f7f9832c7fcf9da279804c1 Mon Sep 17 00:00:00 2001
+From: Viktor Oreshkin <imselfish@stek29.rocks>
+Date: Fri, 23 Nov 2018 04:35:58 +0300
+Subject: [PATCH] Solve scs challenge
+
+---
+ OpenEMV/OpenEMV.jcproj                 | 4 ++--
+ OpenEMV/src/openemv/EMVStaticData.java | 5 +++--
+ 2 files changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/OpenEMV/OpenEMV.jcproj b/OpenEMV/OpenEMV.jcproj
+index 6bbd8fed45fe..24c115908154 100644
+--- a/OpenEMV/OpenEMV.jcproj
++++ b/OpenEMV/OpenEMV.jcproj
+@@ -1,11 +1,11 @@
+ <JavaCardProject name="OpenEMV">
+ <USER>
+-<PKG name="openemv" aid="45 4D 56 00 00" major="1" minor="0">
++<PKG name="openemv" aid="A0 00 00 00 03" major="1" minor="0">
+ <CLASS name="EMVConstants"/>
+ <CLASS name="EMVCrypto"/>
+ <CLASS name="EMVProtocolState"/>
+ <CLASS name="EMVStaticData"/>
+-<APPLET aid="45 4D 56 00 00 01" instanceaid="" parameter="" authority="" privileges="" index="4544" name="SimpleEMVApplet"/>
++<APPLET aid="A0 00 00 00 03 10 10" instanceaid="" parameter="" authority="" privileges="" index="4544" name="SimpleEMVApplet"/>
+ </PKG>
+ <Libs/>
+ </USER>
+diff --git a/OpenEMV/src/openemv/EMVStaticData.java b/OpenEMV/src/openemv/EMVStaticData.java
+index 889cdfcf9846..d8be2bd0e583 100644
+--- a/OpenEMV/src/openemv/EMVStaticData.java
++++ b/OpenEMV/src/openemv/EMVStaticData.java
+@@ -57,7 +57,7 @@ public class EMVStaticData implements EMVConstants {
+ 	private final byte[] fci = new byte[]{
+ 			0x6F, // FCI Template 
+ 			0x25, // Length
+-			(byte)0x84, 0x07, (byte)0xA0, 0x00, 0x00, 0x00, 0x04, (byte)0x80, 0x02, // Dedicated File name 
++			(byte)0x84, 0x07, (byte)0xA0, 0x00, 0x00, 0x00, 0x03, (byte)0x10, 0x10, // Dedicated File name 
+ 			(byte)0xA5, 0x1A, // File Control Information Proprietary Template
+ 				0x50, 0x0E, 0x53, 0x65, 0x63, 0x75, 0x72, 0x65, 0x43, 0x6F, 0x64, 0x65, 0x20, 0x41, 0x75, 0x74, // Application Label  
+ 				(byte)0x87, 0x01, 0x00, // Application Priority Indicator 
+@@ -70,7 +70,8 @@ public class EMVStaticData implements EMVConstants {
+ 			0x00, // Record length
+ 			(byte)0x8C, 0x21, (byte)0x9F, 0x02, 0x06, (byte)0x9F, 0x03, 0x06, (byte)0x9F, 0x1A, 0x02, (byte)0x95, 0x05, 0x5F, 0x2A, 0x02, (byte)0x9A, 0x03, (byte)0x9C, 0x01, (byte)0x9F, 0x37, 0x04, (byte)0x9F, 0x35, 0x01, (byte)0x9F, 0x45, 0x02, (byte)0x9F, 0x4C, 0x08, (byte)0x9F, 0x34, 0x03, // Card Risk Management Data Object List 1 
+ 			(byte)0x8D, 0x0C, (byte)0x91, 0x0A, (byte)0x8A, 0x02, (byte)0x95, 0x05, (byte)0x9F, 0x37, 0x04, (byte)0x9F, 0x4C, 0x08, // Card Risk Management Data Object List 2
+-			0x5A, 0x05, 0x12, 0x34, 0x56, 0x78, (byte)0x90, // 5A Primary account number			
++			0x5A, 0x08, 0x41, (byte)0x73, (byte)0x98, (byte)0x81, 0x59, 0x01, (byte)0x89, 0x43, // 5A Primary account number			
++			0x5F, 0x20, 0x0B, 0x45, 0x6D, 0x70, 0x74, 0x79, 0x20, 0x42, 0x61, 0x64, 0x67, 0x65, // Cardholder name
+ 			0x5F, 0x34, 0x01, 0x02, // Bank identifier code
+ 			(byte)0x8E, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, // Cardholder Verification Method (CVM) List (Always transaction_data PIN performed by ICC) 
+ 			(byte)0x9F, 0x55, 0x01, (byte)0x80, // Unknown field
+-- 
+2.19.1
+
